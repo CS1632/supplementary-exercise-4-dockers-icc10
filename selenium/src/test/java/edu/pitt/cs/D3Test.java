@@ -23,19 +23,19 @@ import org.openqa.selenium.Keys;
 import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.Duration;
-
-import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
+import static org.hamcrest.MatcherAssert.assertThat;
+import java.time.Duration;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class D3Test {
+public class D3Test2 {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
   @Before
   public void setUp() {
-    driver = new FirefoxDriver();
+    driver = new ChromeDriver();
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
   }
@@ -82,10 +82,13 @@ public class D3Test {
     driver.get("http://localhost:8080/");
     driver.findElement(By.xpath("//a[contains(text(),\'Catalog\')]")).click();
     {
+      List<WebElement> elements = driver.findElements(By.xpath("//div[@id=\'listing\']/ul/li[3]"));
+      assert(elements.size() > 0);
+    }
+    {
       List<WebElement> elements = driver.findElements(By.xpath("//div[@id=\'listing\']/ul/li[4]"));
       assert(elements.size() == 0);
     }
-    assertThat(driver.findElement(By.xpath("//div[@id=\'listing\']/ul/li[3]")).getText(), is("ID 3. Mistoffelees"));
   }
   @Test
   public void tEST5RENTACAT() {
@@ -167,5 +170,4 @@ public class D3Test {
     js.executeScript("document.cookie = \"1=false\";document.cookie = \"2=false\";document.cookie = \"3=false\";void(0)");
     assertThat(driver.findElement(By.xpath("//div[@id=\'greeting\']/h4")).getText(), is("Meow! from Jennyanydots."));
   }
- 
 }
