@@ -29,13 +29,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import java.time.Duration;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class D3Test2 {
+public class D3Test {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
   @Before
   public void setUp() {
-    driver = new ChromeDriver();
+    ChromeOptions options = new ChromeOptions();
+    options.addArguments("--headless");
+    driver = new ChromeDriver(options);
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
   }
